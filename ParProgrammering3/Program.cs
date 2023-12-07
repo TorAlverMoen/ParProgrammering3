@@ -43,10 +43,10 @@ namespace ParProgrammering3
             
             Console.WriteLine("Du har disse oppgavene:");
 
-            //foreach (var oppgave in TaskList)
-            //{
-            //    Console.WriteLine(oppgave);
-            //}
+            for (int i = 0;i < TaskList.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. Oppgave: {TaskList[i].TaskName}, Beskrivelse: {TaskList[i].TaskDescription}, Framdrift: {TaskList[i].TaskStatus}");
+            }
         }
 
         void RemoveTask()
