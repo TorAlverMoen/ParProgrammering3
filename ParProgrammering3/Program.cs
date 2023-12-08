@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ParProgrammering3
 {
@@ -13,7 +10,7 @@ namespace ParProgrammering3
 
         void LeggTilOppgave()
         {
-            Console.Write("Skriv inn navn på oppgaven: ");
+            Console.Write("\nSkriv inn navn på oppgaven: ");
             string taskName = Console.ReadLine();
 
             Console.Write("Beskriv oppgaven:");
@@ -22,14 +19,12 @@ namespace ParProgrammering3
             Console.WriteLine("Framdrift kan være: 1. To Do, 2. In Progress, 3. Done");
             Console.Write("Sett oppgave framdrift: ");
 
-            if (Enum.TryParse(Console.ReadLine(), out TaskState currentState))
+            int taskState = int.Parse(Console.ReadLine());
+
+            if (taskState >= 1 && taskState <= 3)
             {
-                Tasks newTask = new Tasks(taskName, taskDescription, currentState);
-                TaskList.Add(newTask);
-            }
-            else
-            {
-                Console.WriteLine("Ugyldig framdrifts valg");
+                Tasks newTasks = new Tasks(taskName, taskDescription, taskState);
+                TaskList.Add(newTasks);
             }
         }
 
@@ -37,15 +32,17 @@ namespace ParProgrammering3
         {
             if (TaskList.Count == 0)
             {
-                Console.WriteLine("Du har ingen oppgaver!");
+                Console.WriteLine("\nDu har ingen oppgaver!");
                 return;
             }
-            
-            Console.WriteLine("Du har disse oppgavene:");
 
-            for (int i = 0;i < TaskList.Count; i++)
+            string[] taskNames = { "To Do", "In Progress", "Done" };
+
+            Console.WriteLine("\nDu har disse oppgavene:");
+
+            for (int i = 0; i < TaskList.Count; i++)
             {
-                Console.WriteLine($"{i + 1}. Oppgave: {TaskList[i].TaskName}, Beskrivelse: {TaskList[i].TaskDescription}, Framdrift: {TaskList[i].TaskStatus}");
+                Console.WriteLine($"{i + 1}. Oppgave: {TaskList[i].TaskName}, Beskrivelse: {TaskList[i].TaskDescription}, Framdrift: {taskNames[TaskList[i].TaskStatus - 1]}");
             }
         }
 
@@ -53,7 +50,7 @@ namespace ParProgrammering3
         {
             if (TaskList.Count == 0)
             {
-                Console.WriteLine("Du har ingen oppgaver!");
+                Console.WriteLine("\nDu har ingen oppgaver!");
                 return;
             }
 
@@ -64,25 +61,25 @@ namespace ParProgrammering3
         {
             while (true)
             {
-                Console.WriteLine("To do liste");
+                Console.WriteLine("\nTo do liste");
                 Console.WriteLine("1. Legg til ny oppgave");
                 Console.WriteLine("2. Vis oppgaver");
                 Console.WriteLine("3. Slett oppgave");
                 Console.WriteLine("4. Avslutt");
 
-                Console.Write("Hva vil du gjøre? ");
+                Console.Write("\nHva vil du gjøre? ");
                 string choice = Console.ReadLine();
 
                 switch (choice)
                 {
-                    case "1": 
+                    case "1":
                         LeggTilOppgave();
                         break;
                     case "2":
                         VisOppgaver();
                         break;
                     case "3":
-                        // slett oppgaver
+                        RemoveTask();
                         break;
                     case "4":
                         Environment.Exit(0);
@@ -93,7 +90,7 @@ namespace ParProgrammering3
                 }
             }
         }
-    
+
         static void Main(string[] args)
         {
             Program newProgram = new Program();
