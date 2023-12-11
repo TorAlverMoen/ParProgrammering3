@@ -54,7 +54,25 @@ namespace ParProgrammering3
                 return;
             }
 
+            Console.WriteLine("\nSletting av oppgaver!");
 
+            for (int i = 0; i < TaskList.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {TaskList[i]}");
+            }
+
+            Console.Write("\nVelg hvilken oppgave som skal slettes: ");
+
+            int taskToRemove = int.Parse(Console.ReadLine());
+
+            if (taskToRemove >= 1 && taskToRemove <= TaskList.Count)
+            {
+                TaskList.RemoveAt(taskToRemove - 1);
+            }
+            else
+            {
+                Console.WriteLine("Du må velge en av oppgavene!");
+            }
         }
 
         void MainMenu()
